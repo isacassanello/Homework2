@@ -1,5 +1,5 @@
-#ifndef HORA_H
-#define HORA_H
+#ifndef TIEMPO_H
+#define TIEMPO_H
 #include <string>
 using namespace std;
 

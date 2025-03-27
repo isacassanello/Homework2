@@ -1,22 +1,34 @@
 #include <iostream>
-#include "hora.h"
+#include "tiempo.h"
 using namespace std;
 
-void mostrarMenu(){
-    cout << "\n=========== MENÚ ===========\n";
-    cout << "1. Crear hora sin parametros\n";
-    cout << "2. Crear hora con solo la hora\n";
-    cout << "3. Crear hora con hora y minutos\n";
-    cout << "4. Crear hora con hora, minutos y segundos\n";
-    cout << "5. Crear hora completa (hora, minutos, segundos, periodo)\n";
-    cout << "6. Ver hora en formato 12h\n";
-    cout << "7. Ver hora en formato 24h\n";
+void mostrarMenuGeneral(){
+    cout << "\n=========== MENU PRINCIPAL ===========\n";
+    cout << "1. Crear reloj sin parametros\n"; // anda mal
+    cout << "2. Crear reloj solo con la hora\n"; // anda mal
+    cout << "3. Crear reloj con hora y minutos\n"; // anda mal
+    cout << "4. Crear reloj con hora, minutos y segundos\n"; // anda mal
+    cout << "5. Crear reloj completo (hora, minutos, segundos, periodo)\n"; // anda mal
+    cout << "6. Ver reloj completo en formato 12h\n"; // anda bien
+    cout << "7. Ver reloj completo en formato 24h\n"; // anda bien creo
     cout << "8. Modificar hora\n";
     cout << "9. Modificar minutos\n";
     cout << "10. Modificar segundos\n";
     cout << "11. Modificar periodo\n";
-    cout << "12. Mostrar componentes individuales y hora completa\n"; 
+    cout << "12. Mostrar componentes individuales\n"; // anda mal
     cout << "0. Salir\n";
+    cout << "============================\n";
+    cout << "Opcion: ";
+}
+
+void mostraMenuIndividual(){
+    cout << "\n=========== MENU COMPONENTES INDIVIDUALES ===========\n";
+    cout << "1. Mostrar solo hora\n";
+    cout << "2. Mostrar solo hora\n";
+    cout << "3. Mostrar solo hora\n";
+    cout << "4. Mostrar solo hora\n";
+    cout << "4. Mostrar solo hora\n";
+    cout << "0. Volver al menú principal\n";
     cout << "============================\n";
     cout << "Opcion: ";
 }
@@ -26,7 +38,7 @@ int main(){
     int opcion = -1;
 
     while (opcion != 0){
-        mostrarMenu();
+        mostrarMenuGeneral();
         cin >> opcion;
 
         switch(opcion){
@@ -101,20 +113,40 @@ int main(){
                 break;
             }
             case 12: {
+                if (T.getHora() == 0 && T.getMinuto() == 0 && T.getSegundo() == 0 && T.getPeriodo() == "a.m"){
+                    cout << "Primero debe crear una hora valida antes de usar esta opcion.\n";
+                } else {
+                    int subopcion = -1;
 
+                    while (opcion !=0) {
+                        mostraMenuIndividual();
+                        cin >> subopcion;
+
+                        switch (subopcion){
+                            case 1: {
+                                cout << "Hora: " << T.getHora() << "h\n"; break;
+                            }
+                            case 2: {
+                                cout << "Minutos: " << T.getMinuto() << "m\n"; break;
+                            }
+                            case 3: {
+                                cout << "Segundos: " << T.getSegundo() << "s\n"; break;
+                            }
+                            case 4: {
+                                cout << "Periodo: " << T.getPeriodo() << "\n"; break;
+                            }
+                            case 0: {
+                                cout << "Volviendo al menu principal"; break; 
+                            }
+                            default:
+                                cout << "Opcion invalida. Intente nuevamente\n";
+                        }
+
+                    }
+                } 
+                break;
             }
         }
     }
-    
-    opcion == 12 {
-        cout << "\nHora actual separada:\n";
-        cout << "Hora: " << h.getHora() << "h\n";
-        cout << "Minutos: " << h.getMinuto() << "m\n";
-        cout << "Segundos: " << h.getSegundo() << "s\n";
-        cout << "Periodo: " << h.getPeriodo() << "\n";
-    
-        cout << "Hora completa en formato 12h: ";
-        h.show12h();
-    }
-
+    return 0;
 }
