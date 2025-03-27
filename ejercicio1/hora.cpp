@@ -1,10 +1,11 @@
 #include "hora.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 using namespace std;
 
 // funcion que valida el valor ingresado de la hora
-int validar_hora(){
+int validarHora(){
     int h;
     cout << "Ingrese una hora valida (entre 1 y 12 incluidos)";
     cin >> h;
@@ -18,12 +19,12 @@ int validar_hora(){
 }
 
 // funcion que valida el valor ingresado de los minutos
-int validar_minuto(){
+int validarMinuto(){
     int m;
     cout << "Ingrese un minuto valido (entre 0 y 59 incluidos)";
     cin >> m;
     
-    while (m < 0 || m > 59) {
+    while (m < 0 || m >= 60) {
         cout << "Minuto invalido. Ingrese nuevamente";
         cin >> m;
     }
@@ -32,12 +33,12 @@ int validar_minuto(){
 }
 
 // funcion que valida el valor ingresado de los segundos
-int validar_segundo(){
+int validarSegundo(){
     int s;
     cout << "Ingrese un segundo valido (entre 0 y 59 incluidos)";
     cin >> s;
     
-    while (s < 0 || s > 59) {
+    while (s < 0 || s >= 60) {
         cout << "Segundo invalido. Ingrese nuevamente";
         cin >> s;
     }
@@ -45,94 +46,143 @@ int validar_segundo(){
     return s;
 }
 
+// funcion que valida el valor ingresado del periodo
+const string validarPeriodo(){
+    string p;
+    cout << "Ingrese un periodo ('a.m' o 'p.m')";
+    cin >> p;
 
-// funcion que valida la hora, si esta fuera del rango, le pide al usuadrion que ingrese un numero correcto
+    while (p != "a.m" || p != "p.m"){
+        cout << "Periodo invalido. Ingrese nuevamente";
+        cin >> p;
+    }
+
+    return p;
+}
 
 // constrcuctores
-Hora::Hora() {
+Tiempo::Tiempo() {
     hora = minuto = segundo = 0;
     periodo = "a.m."; 
 }
 
-Hora::Hora(int h){
+Tiempo::Tiempo(int h){
     if (h >= 1 && h <= 12){
         hora = h;
         minuto = segundo = 0; periodo = "a.m";
     } else {
-        h = validar_hora();
+        h = validarHora();
         hora = h;
     }
     minuto = segundo = 0; periodo = "a.m";
 }
 
-Hora::Hora(int h, int m){
+Tiempo::Tiempo(int h, int m){
     if (h >= 1 && h <= 12 && m >= 0 && m < 60){
         hora = h;
         minuto = m; 
         segundo = 0; periodo = "a.m";
     } else {
-        h = validar_hora();
+        h = validarHora();
         hora = h;
-        m = validar_minuto();
+        m = validarMinuto();
         minuto = m;
     }
     segundo = 0; periodo = "a.m";
 }
 
-Hora::Hora(int h, int m, int s){
+Tiempo::Tiempo(int h, int m, int s){
     if (h >= 1 && h <= 12 && m >= 0 && m < 60 && s >= 0 && s < 60){
         hora = h;
         minuto = m; 
         segundo = s;
         periodo = "a.m";
     } else {
-        h = validar_hora();
+        h = validarHora();
         hora = h;
-        m = validar_minuto();
+        m = validarMinuto();
         minuto = m;
-        s = validar_segundo();
+        s = validarSegundo();
         segundo = s;
     }
     periodo = "a.m";
 }
 
-Hora::Hora(int h, int m, int s, const string&p){
+Tiempo::Tiempo(int h, int m, int s, const string&p){
     if (1 <= h && h <= 12 && m >= 0 && m < 60 && s >= 0 && s < 60 && p == "a.m" || p == "p.m"){
         hora = h; minuto = m; segundo = s; periodo = p;
     } else {
-        h = validar_hora();
+        h = validarHora();
         hora = h;
-        m = validar_minuto();
+        m = validarMinuto();
         minuto = m;
-        s = validar_segundo();
+        s = validarSegundo();
         segundo = s;
-        // falta validar el periodo
+        string per = validarPeriodo();
+        periodo = per;
     }
 }
 
 // setters
-void Hora::setHora(int h){
+void Tiempo::setHora(int h){
     if (h >= 1 && h <= 12) hora = h;
-    else cout << "Hora invalida, debe estar entre 1 y 12 (incluidos)\n";
+    else {
+        h = validarHora();
+        hora = h;
+    }
 }
 
-void Hora::setMinuto(int m){
+void Tiempo::setMinuto(int m){
     if (m >= 0 && m < 60) minuto = m;
-    else cout << "Minuto/s invalio/s, debe estar entre 0 y 59 (incluidos)\n";
+    else {
+        m = validarMinuto();
+        minuto = m;
+    }
 }
 
-void Hora::setSegundo(int s){
+void Tiempo::setSegundo(int s){
     if (s >= 0 && s < 60) segundo = s;
-    else cout << "Segundo/s invalio/s, debe estar entre 0 y 59 (incluidos)\n";
+    else {
+        s = validarSegundo();
+        segundo = s;
+    }
 }
 
-void Hora::setPeriodo(const string& p) {
+void Tiempo::setPeriodo(const string& p) {
     if (p == "a.m" || p == "p.m") periodo = p;
-    else cout << "Periodo invalido, debe ser 'a.m' o 'p.m'.\n";
+    else {
+        string per = validarPeriodo();
+        periodo = per;
+    }
 }
 
 // getters
-int Hora::getHora() {return hora;}
-int Hora::getMinuto() {return minuto;}
-int Hora::getSegundo() {return segundo;}
-string Hora::getPeriodo() {return periodo;}
+int Tiempo::getHora() {return hora;}
+int Tiempo::getMinuto() {return minuto;}
+int Tiempo::getSegundo() {return segundo;}
+string Tiempo::getPeriodo() {return periodo;}
+
+// funcion que muestra el reloj de 12 horas
+void Tiempo::show12h(){
+    cout << setw(2) << setfill('0') << hora << "h, "
+         << setw(2) << setfill('0') << minuto << "m, "
+         << setw(2) << setfill('0') << segundo << "s "
+         << periodo << endl;
+}
+
+// funcion que muestra el reloj de 24 horas
+void Tiempo::show24h() {
+    int h24;
+
+    if (periodo == "p.m" && hora != 12){
+        h24 = hora + 12;
+    } else if (periodo == "a.m" && hora == 12){
+        h24 = 0;
+    } else {
+        h24 = hora;
+    }
+
+    cout << setw(2) << setfill('0') << h24 << ":"
+         << setw(2) << setfill('0') << minuto << ":"
+         << setw(2) << setfill('0') << segundo << endl;
+}

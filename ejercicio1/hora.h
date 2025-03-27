@@ -3,8 +3,7 @@
 #include <string>
 using namespace std;
 
-
-class Hora{
+class Tiempo{
     private: 
         int hora; // horas del 1 al 12
         int minuto; // mins del 0 al 59
@@ -12,11 +11,11 @@ class Hora{
         string periodo; // a.m o p.m
 
     public:
-        Hora(); // sin parametros -. 0h, 0m, 0s a.m
-        Hora(int h); // solo hora
-        Hora(int h, int m); // hora y minutos
-        Hora(int h, int m, int s); // hora, minutos y segundos
-        Hora(int h, int m, int s, const string& p); // hora, minutos, segundos y periodo
+        Tiempo(); // sin parametros -. 0h, 0m, 0s a.m
+        Tiempo(int h); // solo hora
+        Tiempo(int h, int m); // hora y minutos
+        Tiempo(int h, int m, int s); // hora, minutos y segundos
+        Tiempo(int h, int m, int s, const string& p); // hora, minutos, segundos y periodo
 
         void setHora(int h);
         void setMinuto(int m);
@@ -26,10 +25,10 @@ class Hora{
         int getHora();
         int getMinuto();
         int getSegundo();
-        std::string getPeriodo();
+        string getPeriodo();
 
-        void mostrar12h();
-        void mostrar24h();
+        void show12h();
+        void show24h();
 };
 
 #endif
