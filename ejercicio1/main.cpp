@@ -4,18 +4,18 @@ using namespace std;
 
 void mostrarMenuGeneral(){
     cout << "\n=========== MENU PRINCIPAL ===========\n";
-    cout << "1. Crear reloj sin parametros\n"; // anda mal
-    cout << "2. Crear reloj solo con la hora\n"; // anda mal
-    cout << "3. Crear reloj con hora y minutos\n"; // anda mal
-    cout << "4. Crear reloj con hora, minutos y segundos\n"; // anda mal
-    cout << "5. Crear reloj completo (hora, minutos, segundos, periodo)\n"; // anda mal
-    cout << "6. Ver reloj completo en formato 12h\n"; // anda bien
-    cout << "7. Ver reloj completo en formato 24h\n"; // anda bien creo
+    cout << "1. Crear reloj sin parametros\n"; 
+    cout << "2. Crear reloj solo con la hora\n"; 
+    cout << "3. Crear reloj con hora y minutos\n";
+    cout << "4. Crear reloj con hora, minutos y segundos\n"; 
+    cout << "5. Crear reloj completo (hora, minutos, segundos, periodo)\n"; 
+    cout << "6. Ver reloj completo en formato 12h\n"; 
+    cout << "7. Ver reloj completo en formato 24h\n"; 
     cout << "8. Modificar hora\n";
     cout << "9. Modificar minutos\n";
     cout << "10. Modificar segundos\n";
-    cout << "11. Modificar periodo\n";
-    cout << "12. Mostrar componentes individuales\n"; // anda mal
+    cout << "11. Modificar periodo\n"; // si pongo pm y depsues muestro la hora en reloj 12 me tira 00, 00, 00 pm y eso no existe
+    cout << "12. Mostrar componentes individuales\n"; // entra cuando esta en todo 0. que hago lo dejo entrar y que por default me muestre todos 0 o pongo alguna condicion
     cout << "0. Salir\n";
     cout << "============================\n";
     cout << "Opcion: ";
@@ -24,9 +24,9 @@ void mostrarMenuGeneral(){
 void mostraMenuIndividual(){
     cout << "\n=========== MENU COMPONENTES INDIVIDUALES ===========\n";
     cout << "1. Mostrar solo hora\n";
-    cout << "2. Mostrar solo hora\n";
-    cout << "3. Mostrar solo hora\n";
-    cout << "4. Mostrar solo hora\n";
+    cout << "2. Mostrar solo minuto\n";
+    cout << "3. Mostrar solo seguro\n";
+    cout << "4. Mostrar solo periodo\n";
     cout << "4. Mostrar solo hora\n";
     cout << "0. Volver al menú principal\n";
     cout << "============================\n";
@@ -75,6 +75,7 @@ int main(){
                 cout << "Ingrese los minutos: "; cin >> minuto;
                 cout << "Ingrese los segundos: "; cin >> segundo;
                 cout << "Ingrese el periodo: "; cin >> periodo;
+                periodo = normalizarPeriodo(periodo);
                 T = Tiempo(hora, minuto, segundo, periodo);  
                 break;      
             }
@@ -113,12 +114,12 @@ int main(){
                 break;
             }
             case 12: {
-                if (T.getHora() == 0 && T.getMinuto() == 0 && T.getSegundo() == 0 && T.getPeriodo() == "a.m"){
+                if (T.getHora() == 0 && T.getMinuto() == 0 && T.getSegundo() == 0 && T.getPeriodo() == "a.m"){ // tal vez la tengo qur borrar
                     cout << "Primero debe crear una hora valida antes de usar esta opcion.\n";
                 } else {
                     int subopcion = -1;
 
-                    while (opcion !=0) {
+                    while (subopcion !=0) {
                         mostraMenuIndividual();
                         cin >> subopcion;
 
@@ -136,7 +137,7 @@ int main(){
                                 cout << "Periodo: " << T.getPeriodo() << "\n"; break;
                             }
                             case 0: {
-                                cout << "Volviendo al menu principal"; break; 
+                                cout << "Volviendo al menu principal\n"; break; 
                             }
                             default:
                                 cout << "Opcion invalida. Intente nuevamente\n";

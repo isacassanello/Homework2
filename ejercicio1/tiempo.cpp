@@ -7,7 +7,7 @@ using namespace std;
 // funcion que valida el valor ingresado de la hora
 int validarHora(){
     int h;
-    cout << "Ingrese una hora valida (entre 1 y 12 incluidos)";
+    cout << "Ingrese una hora valida (entre 1 y 12 incluidos): ";
     cin >> h;
     
     while (h < 1 || h > 12) {
@@ -21,12 +21,13 @@ int validarHora(){
 // funcion que valida el valor ingresado de los minutos
 int validarMinuto(){
     int m;
-    cout << "Ingrese un minuto valido (entre 0 y 59 incluidos)";
+    cout << "Ingrese un minuto valido (entre 0 y 59 incluidos): ";
     cin >> m;
     
     while (m < 0 || m >= 60) {
         cout << "Minuto invalido. Ingrese nuevamente";
         cin >> m;
+        break;
     }
 
     return m;
@@ -35,7 +36,7 @@ int validarMinuto(){
 // funcion que valida el valor ingresado de los segundos
 int validarSegundo(){
     int s;
-    cout << "Ingrese un segundo valido (entre 0 y 59 incluidos)";
+    cout << "Ingrese un segundo valido (entre 0 y 59 incluidos): ";
     cin >> s;
     
     while (s < 0 || s >= 60) {
@@ -49,14 +50,33 @@ int validarSegundo(){
 // funcion que valida el valor ingresado del periodo
 const string validarPeriodo(){
     string p;
-    cout << "Ingrese un periodo ('a.m' o 'p.m')";
+    cout << "Ingrese un periodo ('a.m' o 'p.m'): ";
     cin >> p;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    while (p != "a.m" || p != "p.m"){
-        cout << "Periodo invalido. Ingrese nuevamente";
+    for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
+
+    if (p == "am") p = "a.m";
+    if (p == "pm") p = "p.m";
+
+    while (p != "a.m" && p != "p.m"){
+        cout << "Periodo invalido. Ingrese nuevamente ('a.m' o 'p.m'): ";
         cin >> p;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+
+        for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
+
+        if (p == "am") p = "a.m";
+        if (p == "pm") p = "p.m";
     }
 
+    return p;
+}
+
+string normalizarPeriodo(string p) {
+    for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
+    if (p == "am") return "a.m";
+    if (p == "pm") return "p.m";
     return p;
 }
 
@@ -67,60 +87,48 @@ Tiempo::Tiempo() {
 }
 
 Tiempo::Tiempo(int h){
-    if (h >= 1 && h <= 12){
-        hora = h;
-        minuto = segundo = 0; periodo = "a.m";
-    } else {
-        h = validarHora();
-        hora = h;
-    }
+    if (h >= 1 && h <= 12) hora = h;
+    else hora = validarHora();
+
     minuto = segundo = 0; periodo = "a.m";
 }
 
 Tiempo::Tiempo(int h, int m){
-    if (h >= 1 && h <= 12 && m >= 0 && m < 60){
-        hora = h;
-        minuto = m; 
-        segundo = 0; periodo = "a.m";
-    } else {
-        h = validarHora();
-        hora = h;
-        m = validarMinuto();
-        minuto = m;
-    }
+    if (h >= 1 && h <= 12) hora = h;
+    else hora = validarHora();
+    
+    if (m >= 0 && m < 60) minuto = m;
+    else minuto = validarMinuto();
+
     segundo = 0; periodo = "a.m";
 }
 
 Tiempo::Tiempo(int h, int m, int s){
-    if (h >= 1 && h <= 12 && m >= 0 && m < 60 && s >= 0 && s < 60){
-        hora = h;
-        minuto = m; 
-        segundo = s;
-        periodo = "a.m";
-    } else {
-        h = validarHora();
-        hora = h;
-        m = validarMinuto();
-        minuto = m;
-        s = validarSegundo();
-        segundo = s;
-    }
+    if (h >= 1 && h <= 12) hora = h;
+    else hora = validarHora();
+    
+    if (m >= 0 && m < 60) minuto = m;
+    else minuto = validarMinuto();
+    
+    if (s >= 0 && s < 60) segundo = s;
+    else segundo = validarSegundo();
+
     periodo = "a.m";
 }
 
 Tiempo::Tiempo(int h, int m, int s, const string&p){
-    if (1 <= h && h <= 12 && m >= 0 && m < 60 && s >= 0 && s < 60 && p == "a.m" || p == "p.m"){
-        hora = h; minuto = m; segundo = s; periodo = p;
-    } else {
-        h = validarHora();
-        hora = h;
-        m = validarMinuto();
-        minuto = m;
-        s = validarSegundo();
-        segundo = s;
-        string per = validarPeriodo();
-        periodo = per;
-    }
+    if (h >= 1 && h <= 12) hora = h;
+    else hora = validarHora();
+    
+    if (m >= 0 && m < 60) minuto = m;
+    else minuto = validarMinuto();
+    
+    if (s >= 0 && s < 60) segundo = s;
+    else segundo = validarSegundo();
+
+    string per = normalizarPeriodo(p);
+    if (per == "a.m" || per == "p.m") periodo = per;
+    else periodo = validarPeriodo();
 }
 
 // setters
@@ -149,11 +157,10 @@ void Tiempo::setSegundo(int s){
 }
 
 void Tiempo::setPeriodo(const string& p) {
-    if (p == "a.m" || p == "p.m") periodo = p;
-    else {
-        string per = validarPeriodo();
-        periodo = per;
-    }
+    string per = normalizarPeriodo(p);
+    if (per == "a.m" || per == "p.m") periodo = per;
+    else 
+        periodo = validarPeriodo();
 }
 
 // getters

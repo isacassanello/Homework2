@@ -31,4 +31,6 @@ class Tiempo{
         void show24h();
 };
 
+string normalizarPeriodo(string p); // puedp esto?
+
 #endif
