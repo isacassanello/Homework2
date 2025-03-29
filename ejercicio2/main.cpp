@@ -54,7 +54,14 @@ int main(){
                 break;
             }
             case 2:{
-
+                int legajo;
+                cout << "Ingrese el legajo del estudiante a desinscribir: ";
+                cin >> legajo;
+                curso.desinscribirEstudiantes(legajo);
+                break;
+            }
+            case 3: {
+                
             }
         }
     }
