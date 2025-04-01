@@ -106,7 +106,9 @@ int main(){
                 break;
             }
             case 6: {
-                cursoOriginal.mostrarEstudiantes();
+                if (cursoOriginal.estaVacio()) cout << "El curso esta vacio, no hay estudiantes para mostar" << endl;
+                else cursoOriginal.mostrarEstudiantes();
+
                 break;
             }
             case 7: {
@@ -130,3 +132,10 @@ int main(){
     }
     return 0;
 }
+
+/*
+PUNTO C
+
+La relación entre los objetos Curso y Estudiante en esta implementación es de composicion, ya que el Curso contiene punteros a objetos 
+Estudiante y controla su ciclo de vida. Esto significa que, si un curso se destruye, los estudiantes que contiene tambien son eliminados.
+*/

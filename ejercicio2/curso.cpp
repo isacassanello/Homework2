@@ -71,6 +71,10 @@ bool Curso::estaCompleto(){
     return estudiantes.size() >= 20;
 }
 
+bool Curso::estaVacio() {
+    return estudiantes.empty();
+}
+
 // funcion comparadora
 bool compararEstudiantes(Estudiante* a, Estudiante* b) {
     return *a < *b;
