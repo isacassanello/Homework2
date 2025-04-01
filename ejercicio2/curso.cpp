@@ -5,18 +5,12 @@ using namespace std;
 
 Curso::Curso() {}
 
-Curso::~Curso(){
-    while (!estudiantes.empty()) {
-        delete estudiantes.back();
-        estudiantes.pop_back();
-    }
-}
-
 // copia de Curso con DEEP COPY
 Curso::Curso(const Curso& otro){
     // recorro los punteros a estudiantes que hay en el Curso original ('otro')
     for (size_t i = 0; i < otro.estudiantes.size(); ++i){
         Estudiante* original = otro.estudiantes[i];
+        if (!original) continue;
 
         string nombre = original->getNombreCompleto();
         int legajo = original->getLegajo();
@@ -59,11 +53,11 @@ void Curso::desinscribirEstudiantes(int legajo){
         if(estudiantes[i] -> getLegajo() == legajo){
             delete estudiantes[i];
             estudiantes.erase(estudiantes.begin() + i); // inicio un contador y le sumo las posiciones avanzadas para borrarlo. luego se elimina del vector
-            cout << "Estudiante desinscripto correctamente";
+            cout << "Estudiante desinscripto correctamente\n";
             return;
         }
     }
-    cout << "Estudiante no encontrado" << endl;
+    cout << "Estudiante no encontrado\n" << endl;
 }
 
 Estudiante* Curso::buscarEstudiante(int legajo){
@@ -90,6 +84,11 @@ void Curso::mostrarEstudiantes(){
     sort(copia.begin(), copia.end(), compararEstudiantes);
 
     // recorro la copia e imprimo los nombres ordenados
-    for (size_t i = 0; i < copia.size(); i++) cout << *copia[i] << endl;
+    for (size_t i = 0; i < copia.size(); i++) {
+        if (copia[i]){
+            cout << "Estudiante " << i + 1 << ": ";
+            cout << *copia[i] << endl;
+        } else cout << "Estudiante en posicion " << i << " es nullptr" << endl;
+    }
 }
 

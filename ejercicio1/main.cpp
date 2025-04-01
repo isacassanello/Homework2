@@ -111,6 +111,7 @@ int main(){
                 string nuevoPeriodo;
                 cout << "Ingrese nuevo periodo: "; cin >> nuevoPeriodo;
                 T.setPeriodo(nuevoPeriodo);
+                if (T.getHora() == 0) // SEGUIR
                 break;
             }
             case 12: {
@@ -143,6 +144,8 @@ int main(){
                 }
                 break;
             }
+            default:
+                cout << "Opción invalida. Intente nuevamente.\n";
         }
     }
     return 0;

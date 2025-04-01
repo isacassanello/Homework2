@@ -15,9 +15,6 @@ class Curso{
         // constructor copia
         Curso(const Curso& otro);
 
-        // destructor
-        ~Curso();
-
         // metodos para inscribir, desincribir y consultas estudiantes
         void inscribirEstudiantes(Estudiante* estudiante);
         void desinscribirEstudiantes(int legajo);

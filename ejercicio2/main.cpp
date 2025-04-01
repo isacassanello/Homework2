@@ -1,6 +1,6 @@
 #include <iostream>
 #include "curso.h"
-#include "estudiante.h"
+#include <memory>
 using namespace std;
 
 void mostraMenu(){
@@ -12,35 +12,48 @@ void mostraMenu(){
     cout << "   5. Indicar si el curso esta completo" << endl;
     cout << "   6. Mostrar lista de estudiantes (en orden alfabetico)" << endl;
     cout << "   7. Copiar Curso" << endl;  
-    cout << "   8. Salir" << endl;
+    cout << "   0. Salir" << endl;
     cout << "   Seleccione una opción: ";
+}
+
+// funcion que valida que el numero ingresado sea un entero positivo
+int pedirEnteroPositivo(const string& mensaje) {
+    int valor;
+    while (true) {
+        cout << mensaje;
+        cin >> valor;
+
+        if (cin.fail() || valor <= 0) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // descarta entrada invalida
+            cout << "\nEntrada invalida. Ingrese un numero entero positivo\n";
+        } else {
+            cin.ignore(); // limpia el \n que queda en el buffer
+            return valor;
+        }
+    }
 }
 
 int main(){
     Curso cursoOriginal;
     Curso* cursoCopia = nullptr;
-    int opcion = 0;
+    int opcion = -1;
 
-    while (opcion != 8){
+    while (opcion != 0){
         mostraMenu();
         cin >> opcion;
         cin.ignore();
 
         switch(opcion){
             case 1: {
-                string nombre; int legajo; int cantidadCursos;
-
-                cout << "Ingrese nombre completo: ";
+                string nombre; 
+                cout << "\nIngrese nombre completo: ";
                 getline(cin, nombre);
 
-                cout << "Ingrese legajo: ";
-                cin >> legajo;
+                int legajo = pedirEnteroPositivo("Ingrese legajo (entero positivo): ");
+                int cantidadCursos = pedirEnteroPositivo("Cuantos cursos desea agregar?: ");
 
                 Estudiante* nuevo = new Estudiante(nombre, legajo);
-
-                cout << "Cuantos cursos desea agregar?: ";
-                cin >> cantidadCursos;
-                cin.ignore();
 
                 for (int i = 0; i < cantidadCursos; ++i) {
                     string nombreCurso;
@@ -49,43 +62,47 @@ int main(){
                     cout << "Nombre del curso " << (i + 1) << ": ";
                     getline(cin, nombreCurso);
 
-                    cout << "Nota final: ";
-                    cin >> nota;
-                    cin.ignore();
+                    // condiciones para la nota asi no se me rompe el programa
+                    while (true){
+                        cout << "Nota final: ";
+                        cin >> nota;
 
+                        if (cin.fail() || nota < 0 || nota > 10){
+                            cin.clear(); 
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // descarta la entrada inválida
+                            cout << "\nIngrese una nota valida entre 0 y 10 (solo numeros)\n";
+                        } else {
+                            cin.ignore();
+                            break;
+                        }
+                    }
                     nuevo->agregarCurso(nombreCurso, nota);
                 }
                 cursoOriginal.inscribirEstudiantes(nuevo);
                 break;
             }
             case 2:{
-                int legajo;
-                cout << "Ingrese el legajo del estudiante a desinscribir: ";
-                cin >> legajo;
+                int legajo = pedirEnteroPositivo("\nIngrese el legajo del estudiante a desinscribir: ");
                 cursoOriginal.desinscribirEstudiantes(legajo);
                 break;
             }
             case 3: {
-                int legajo;
-                cout << "Ingrese legajo del estudiante: ";
-                cin >> legajo;
+                int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
                 Estudiante* est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) cout << "Promedio final: " << est->calcularPromedio() << endl;
                 else cout << "Estudiante no encontrado\n";
                 break;
             }
             case 4: {
-                int legajo;
-                cout << "Ingrese legajo del estudiante: ";
-                cin >> legajo;
+                int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
                 Estudiante* est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) est->mostrarInformacion();
-                else cout << "Estudiante no encontrado\n";
+                else cout << "\nEstudiante no encontrado\n";
                 break;
             }
             case 5: {
-                if (cursoOriginal.estaCompleto()) cout << "El curso esta completo\n";
-                else cout << "El curso NO esta completo";
+                if (cursoOriginal.estaCompleto()) cout << "\nEl curso esta completo\n";
+                else cout << "\nEl curso NO esta completo\n";
                 break;
             }
             case 6: {
@@ -93,16 +110,23 @@ int main(){
                 break;
             }
             case 7: {
-                delete cursoCopia;
-                cursoCopia = new Curso(cursoOriginal);
-                cout << "Curso copiado correctamente. Mostrando estudiantes del curso copiado:\n";
+                if (cursoCopia != nullptr) {
+                    delete cursoCopia;
+                }
+
+                cursoCopia = new Curso(cursoOriginal);  // Crear una nueva copia
+                cout << "\nCurso copiado correctamente. Mostrando estudiantes del curso copiado:\n";
                 cursoCopia->mostrarEstudiantes();
                 break;
             }
-            case 8: {
-                delete cursoCopia;
+            case 0: {
+                cout << "Saliendo del programa";
+                break;
 
             }
+            default:
+                cout << "Opción inválida. Intente nuevamente.\n";
         }
     }
+    return 0;
 }

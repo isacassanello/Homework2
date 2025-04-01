@@ -11,8 +11,7 @@ Paso 3 -> ./main
 COMPILADOR EN EL EJERCICIO 2
 
 Paso 1 -> cd ejercicio2    
-Paso 2 -> 
-Paso 3 -> ./main
+Paso 2 -> make run 
 
 ------------------------------------------------
 

@@ -42,7 +42,7 @@ ostream& operator<<(ostream& os, const Estudiante& est) {
 }
 
 void Estudiante::mostrarInformacion(){
-    cout << "Nombre: " << nombreCompleto << endl;
+    cout << "\nNombre: " << nombreCompleto << endl;
     cout << "Legajo: " << legajo << endl;
     cout << "Promedio: " << calcularPromedio() << endl;
 }
