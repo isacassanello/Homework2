@@ -10,7 +10,10 @@ class Curso{
 
     public:
         // constructor
-        Curso(); 
+        Curso();
+        
+        // constructor copia
+        Curso(const Curso& otro);
 
         // destructor
         ~Curso();
@@ -19,6 +22,8 @@ class Curso{
         void inscribirEstudiantes(Estudiante* estudiante);
         void desinscribirEstudiantes(int legajo);
         Estudiante* buscarEstudiante(int legajo);
+
+        bool estaCompleto();
 
         // metodo para mostrar los estudiantes
         void mostrarEstudiantes();

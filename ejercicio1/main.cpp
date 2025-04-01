@@ -15,7 +15,7 @@ void mostrarMenuGeneral(){
     cout << "9. Modificar minutos\n";
     cout << "10. Modificar segundos\n";
     cout << "11. Modificar periodo\n"; // si pongo pm y depsues muestro la hora en reloj 12 me tira 00, 00, 00 pm y eso no existe
-    cout << "12. Mostrar componentes individuales\n"; // entra cuando esta en todo 0. que hago lo dejo entrar y que por default me muestre todos 0 o pongo alguna condicion
+    cout << "12. Mostrar componentes individuales\n"; 
     cout << "0. Salir\n";
     cout << "============================\n";
     cout << "Opcion: ";
@@ -114,37 +114,33 @@ int main(){
                 break;
             }
             case 12: {
-                if (T.getHora() == 0 && T.getMinuto() == 0 && T.getSegundo() == 0 && T.getPeriodo() == "a.m"){ // tal vez la tengo qur borrar
-                    cout << "Primero debe crear una hora valida antes de usar esta opcion.\n";
-                } else {
-                    int subopcion = -1;
+                int subopcion = -1;
 
-                    while (subopcion !=0) {
-                        mostraMenuIndividual();
-                        cin >> subopcion;
+                while (subopcion !=0) {
+                    mostraMenuIndividual();
+                    cin >> subopcion;
 
-                        switch (subopcion){
-                            case 1: {
-                                cout << "Hora: " << T.getHora() << "h\n"; break;
-                            }
-                            case 2: {
-                                cout << "Minutos: " << T.getMinuto() << "m\n"; break;
-                            }
-                            case 3: {
-                                cout << "Segundos: " << T.getSegundo() << "s\n"; break;
-                            }
-                            case 4: {
-                                cout << "Periodo: " << T.getPeriodo() << "\n"; break;
-                            }
-                            case 0: {
-                                cout << "Volviendo al menu principal\n"; break; 
-                            }
-                            default:
-                                cout << "Opcion invalida. Intente nuevamente\n";
+                    switch (subopcion){
+                        case 1: {
+                            cout << "Hora: " << T.getHora() << "h\n"; break;
                         }
-
+                        case 2: {
+                            cout << "Minutos: " << T.getMinuto() << "m\n"; break;
+                        }
+                        case 3: {
+                            cout << "Segundos: " << T.getSegundo() << "s\n"; break;
+                        }
+                        case 4: {
+                            cout << "Periodo: " << T.getPeriodo() << "\n"; break;
+                        }
+                        case 0: {
+                            cout << "Volviendo al menu principal\n"; break; 
+                        }
+                        default:
+                            cout << "Opcion invalida. Intente nuevamente\n";
                     }
-                } 
+
+                }
                 break;
             }
         }
