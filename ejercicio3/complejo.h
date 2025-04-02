@@ -8,7 +8,7 @@ class Complejo : public Numero {
         double imaginario;
 
     public:
-        Complejo(double re, double im);
+        Complejo(double re, double im); // parte real y parte imaginaria
         Numero* suma(const Numero* otro) override;
         Numero* resta(const Numero* otro) override;
         Numero* multiplicacion(const Numero* otro) override;

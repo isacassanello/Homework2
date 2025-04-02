@@ -7,7 +7,9 @@ class Entero : public Numero {
         int valor;
 
     public:
+        // constructor
         Entero(int v);
+
         Numero* suma(const Numero* otro) override;
         Numero* resta(const Numero* otro) override;
         Numero* multiplicacion(const Numero* otro) override;
