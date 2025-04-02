@@ -21,7 +21,7 @@ class Curso{
         Estudiante* buscarEstudiante(int legajo);
 
         bool estaCompleto();
-        bool Curso::estaVacio();
+        bool estaVacio();
 
         // metodo para mostrar los estudiantes
         void mostrarEstudiantes();
