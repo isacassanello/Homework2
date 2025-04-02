@@ -31,7 +31,7 @@ int main(){
 
     // COMPLEJOS
     Complejo* c1 = new Complejo(4, 3);
-    Complejo* c2 = new Complejo(1, -2);
+    Complejo* c2 = new Complejo(4, -2);
 
     cout << "\n=========COMPLEJOS=========" << endl;
     cout << "c1 = " << c1->toString() << endl;
@@ -39,12 +39,17 @@ int main(){
     cout << "Suma: " << c1->suma(c2)->toString() << endl;
     cout << "Resta: " << c1->resta(c2)->toString() << endl;
     cout << "Multiplicacion: " << c1->multiplicacion(c1)->toString() << endl;
-    cout << "Division: " << c1->division(c1)->toString() << "\n" << endl;
+    try {
+        Numero* resultado = c1->division(c2);
+        cout << "Division: " << resultado->toString() << "\n" << endl;
+        delete resultado;
+    } catch (const exception& e) {
+        cout << "\nError al dividir: " << e.what() << endl;
+    }
 
     delete e1; delete e2;
     delete r1; delete r2;
     delete c1; delete c2;
 
     return 0;
-    
 }

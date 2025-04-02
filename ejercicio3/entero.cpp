@@ -23,7 +23,7 @@ Numero* Entero::multiplicacion(const Numero* otro){
 
 Numero* Entero::division(const Numero* otro){
     const Entero* e = static_cast<const Entero*>(otro);
-    if (e->valor == 0) throw runtime_error("\nDivision por cero");
+    if (e->valor == 0) throw runtime_error("Division por cero\n");
     return new Entero(valor / e->valor);
 }
 

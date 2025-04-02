@@ -30,9 +30,9 @@ Numero* Complejo::multiplicacion(const Numero* otro){
 
 Numero* Complejo::division(const Numero* otro){
     const Complejo* c = static_cast<const Complejo*>(otro);
-    // division de dos numeros complejos -> mutliplico y divido por el conjugado del denominador. Entonces, el denominador se convierte en la muliplicacion entre el denominador y su conjugado
+    // division de dos numeros complejos -> mutliplico y divido por el conjugado del denominador. Entonces, el denominador se convierte en la muliplicacion del denominador y su conjugado
     double denominador = c->real * c->real + c->imaginario * c->imaginario;
-    if (denominador == 0) throw runtime_error("Division por cero");
+    if (denominador == 0) throw runtime_error("Division por cero\n");
     double re = (real * c->real + imaginario * c->imaginario) / denominador;
     double im = (imaginario * c->real - real * c->imaginario) / denominador;
     return new Complejo(re, im);
