@@ -14,7 +14,7 @@ void mostrarMenuGeneral(){
     cout << "8. Modificar hora\n";
     cout << "9. Modificar minutos\n";
     cout << "10. Modificar segundos\n";
-    cout << "11. Modificar periodo\n"; // si pongo pm y depsues muestro la hora en reloj 12 me tira 00, 00, 00 pm y eso no existe
+    cout << "11. Modificar periodo\n"; 
     cout << "12. Mostrar componentes individuales\n"; 
     cout << "0. Salir\n";
     cout << "============================\n";
@@ -27,7 +27,6 @@ void mostraMenuIndividual(){
     cout << "2. Mostrar solo minuto\n";
     cout << "3. Mostrar solo seguro\n";
     cout << "4. Mostrar solo periodo\n";
-    cout << "4. Mostrar solo hora\n";
     cout << "0. Volver al menú principal\n";
     cout << "============================\n";
     cout << "Opcion: ";
@@ -44,7 +43,7 @@ int main(){
         switch(opcion){
             case 1: {
                 T = Tiempo();
-                cout << "Hora creada sin parametros";
+                cout << "Hora creada sin parametros\n";
                 break;
             }
             case 2: {
@@ -97,7 +96,7 @@ int main(){
             }
             case 9: {
                 int nuevoMinuto;
-                cout << "Ingrese nuevo munuto: "; cin >> nuevoMinuto;
+                cout << "Ingrese nuevo minuto: "; cin >> nuevoMinuto;
                 T.setMinuto(nuevoMinuto);
                 break;
             }
@@ -111,7 +110,6 @@ int main(){
                 string nuevoPeriodo;
                 cout << "Ingrese nuevo periodo: "; cin >> nuevoPeriodo;
                 T.setPeriodo(nuevoPeriodo);
-                if (T.getHora() == 0) // SEGUIR
                 break;
             }
             case 12: {
@@ -140,12 +138,11 @@ int main(){
                         default:
                             cout << "Opcion invalida. Intente nuevamente\n";
                     }
-
                 }
                 break;
             }
             default:
-                cout << "Opción invalida. Intente nuevamente.\n";
+                cout << "Opción invalida. Intente nuevamente\n";
         }
     }
     return 0;

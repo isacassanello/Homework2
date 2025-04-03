@@ -4,7 +4,6 @@
 #include <string>
 using namespace std;
  
-// Numero es una clase abstracta pura o una interfaz
 class CuentaDeBanco{
     protected:
     /*

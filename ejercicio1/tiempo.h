@@ -6,35 +6,35 @@ using namespace std;
 class Tiempo{
     private: 
         int hora; // horas del 1 al 12
-        int minuto; // mins del 0 al 59
-        int segundo; // segs del 0 al 59
-        string periodo; // a.m o p.m
+        int minuto; // minutos del 0 al 59
+        int segundo; // segundos del 0 al 59
+        string periodo; // "a.m" o "p.m"
 
     public:
-        // constructores
-        Tiempo(); // sin parametros -. 0h, 0m, 0s a.m
-        Tiempo(int h); // solo hora
-        Tiempo(int h, int m); // hora y minutos
-        Tiempo(int h, int m, int s); // hora, minutos y segundos
-        Tiempo(int h, int m, int s, const string& p); // hora, minutos, segundos y periodo
+        // constructores sobrecargados
+        Tiempo(); // sin parametros -> 00h, 00m, 00s a.m
+        Tiempo(int h); // solo hora -> HHh, 00m, 00s a.m
+        Tiempo(int h, int m); // hora y minutos -> HHh, MMm, 00s a.m
+        Tiempo(int h, int m, int s); // hora, minutos y segundos -> HHh, MMm, SSs a.m
+        Tiempo(int h, int m, int s, const string& p); // hora, minutos, segundos y periodo -> HHh, MMm, SSs a.m/p.m
 
-        // setters
+        // setters: permiten modificar cada componente con validacion
         void setHora(int h);
         void setMinuto(int m);
         void setSegundo(int s);
         void setPeriodo(const string& p);
 
-        // setters
-        int getHora();
-        int getMinuto();
-        int getSegundo();
-        string getPeriodo();
+        // getters: obtengo el valor actual de cada componente
+        int getHora() const;
+        int getMinuto() const;
+        int getSegundo() const;
+        string getPeriodo() const;
 
         // metodos para mostrar la hora
-        void show12h();
+        void show12h(); 
         void show24h();
 };
 
-string normalizarPeriodo(string p); // puedp esto?
+string normalizarPeriodo(string p);
 
 #endif

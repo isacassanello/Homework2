@@ -11,7 +11,7 @@ int validarHora(){
     cin >> h;
     
     while (h < 1 || h > 12) {
-        cout << "Hora invalida. Ingrese nuevamente";
+        cout << "Hora invalida. Ingrese nuevamente: ";
         cin >> h;
     }
 
@@ -25,7 +25,7 @@ int validarMinuto(){
     cin >> m;
     
     while (m < 0 || m >= 60) {
-        cout << "Minuto invalido. Ingrese nuevamente";
+        cout << "Minuto invalido. Ingrese nuevamente: ";
         cin >> m;
         break;
     }
@@ -40,11 +40,20 @@ int validarSegundo(){
     cin >> s;
     
     while (s < 0 || s >= 60) {
-        cout << "Segundo invalido. Ingrese nuevamente";
+        cout << "Segundo invalido. Ingrese nuevamente: ";
         cin >> s;
     }
 
     return s;
+}
+
+// cuando el usuario ingrese el periodo, esta funcion modifica las entradas para estandarizar
+string normalizarPeriodo(string p) {
+    for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]); // convierto en minuscula lo que ingrese el usuario
+    // condiciones para que no me tire error 
+    if (p == "am") return "a.m";
+    if (p == "pm") return "p.m";
+    return p;
 }
 
 // funcion que valida el valor ingresado del periodo
@@ -52,31 +61,20 @@ const string validarPeriodo(){
     string p;
     cout << "Ingrese un periodo ('a.m' o 'p.m'): ";
     cin >> p;
+    // numeric_limits<streamsize>::max(): define la cantidad maxima de caracteres a ignorar. En este caso, el maximo posible
+    // '\n': es el caracter de parada. cin.ignore se detiene cuando encuentra un salto de linea
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
-
-    if (p == "am") p = "a.m";
-    if (p == "pm") p = "p.m";
+    
+    p = normalizarPeriodo(p);
 
     while (p != "a.m" && p != "p.m"){
         cout << "Periodo invalido. Ingrese nuevamente ('a.m' o 'p.m'): ";
         cin >> p;
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 
-        for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
-
-        if (p == "am") p = "a.m";
-        if (p == "pm") p = "p.m";
+        p = normalizarPeriodo(p);
     }
 
-    return p;
-}
-
-string normalizarPeriodo(string p) {
-    for (int i = 0; i < p.length(); i++) p[i] = tolower(p[i]);
-    if (p == "am") return "a.m";
-    if (p == "pm") return "p.m";
     return p;
 }
 
@@ -158,16 +156,26 @@ void Tiempo::setSegundo(int s){
 
 void Tiempo::setPeriodo(const string& p) {
     string per = normalizarPeriodo(p);
-    if (per == "a.m" || per == "p.m") periodo = per;
+    if (per == "a.m" || per == "p.m") {
+        periodo = per;
+        if (hora == 0 && periodo == "p.m"){ 
+            /*
+            esta condicion es para el caso en el que inicio un reloj sin parametros, luego modifico el periodo a "p.m". Si en este caso
+            pido que se imprima el reloj en formato 12h, me imprime 00h, 00m, 00s p.m y eso no existe. Con esta condicion, si el periodo 
+            es "p.m" y la hora es 00h entonces, la hora se convierte en 12h. Y el formato imprime 12h, 00m, 00s p.m lo cual existe
+            */
+            hora = 12;
+        }
+    }
     else 
         periodo = validarPeriodo();
 }
 
 // getters
-int Tiempo::getHora() {return hora;}
-int Tiempo::getMinuto() {return minuto;}
-int Tiempo::getSegundo() {return segundo;}
-string Tiempo::getPeriodo() {return periodo;}
+int Tiempo::getHora() const{return hora;}
+int Tiempo::getMinuto() const{return minuto;}
+int Tiempo::getSegundo() const{return segundo;}
+string Tiempo::getPeriodo() const{return periodo;}
 
 // funcion que muestra el reloj de 12 horas
 void Tiempo::show12h(){

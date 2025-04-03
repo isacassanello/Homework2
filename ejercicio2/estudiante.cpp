@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-// consructor
+// constructor
 Estudiante::Estudiante(const string& nombreCompleto, int legajo) {
     this->nombreCompleto = nombreCompleto;
     this->legajo = legajo;
