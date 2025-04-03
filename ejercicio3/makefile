@@ -1,24 +1,24 @@
-# Nombre del ejecutable
+# nombre del ejecutable
 EXEC = main
 
-# Archivos fuente
+# archivos fuente
 SRCS = main.cpp entero.cpp real.cpp complejo.cpp
 
-# Archivos de cabecera (no se compilan, pero los listamos por orden)
+# archivos header (no se compilan, pero los listamos por orden)
 HEADERS = numero.h entero.h real.h complejo.h
 
-# Compilador y flags
+# compilador y flags
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
 
-# Regla por defecto: compilar
+# compilar
 $(EXEC): $(SRCS) $(HEADERS)
 	$(CXX) $(CXXFLAGS) -o $(EXEC) $(SRCS)
 
-# Ejecutar el programa
+# ejecutar el programa
 run: $(EXEC)
 	./$(EXEC)
 
-# Limpiar archivos generados
+# limpiar archivos generados
 clean:
 	rm -f $(EXEC)

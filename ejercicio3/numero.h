@@ -6,10 +6,10 @@ using namespace std;
 // Numero es una clase abstracta pura o una interfaz
 class Numero{
     public:
-        virtual Numero* suma(const Numero* otro) = 0;
-        virtual Numero* resta(const Numero* otro) = 0;
-        virtual Numero* multiplicacion(const Numero* otro) = 0; 
-        virtual Numero* division(const Numero* otro) = 0;
+        virtual shared_ptr<Numero> suma(const Numero& otro) = 0;
+        virtual shared_ptr<Numero> resta(const Numero& otro) = 0;
+        virtual shared_ptr<Numero> multiplicacion(const Numero& otro) = 0; 
+        virtual shared_ptr<Numero> division(const Numero& otro) = 0;
         virtual string toString() = 0;
         virtual ~Numero() = default; // default deshabilita los metodos
 };

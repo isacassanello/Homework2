@@ -10,10 +10,10 @@ class Entero : public Numero {
         // constructor
         Entero(int v);
 
-        Numero* suma(const Numero* otro) override;
-        Numero* resta(const Numero* otro) override;
-        Numero* multiplicacion(const Numero* otro) override;
-        Numero* division(const Numero* otro) override;
+        shared_ptr<Numero> suma(const Numero& otro) override;
+        shared_ptr<Numero> resta(const Numero& otro) override;
+        shared_ptr<Numero> multiplicacion(const Numero& otro) override;
+        shared_ptr<Numero> division(const Numero& otro) override;
         string toString() override;
         
         // getter

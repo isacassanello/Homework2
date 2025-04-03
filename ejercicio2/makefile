@@ -1,29 +1,24 @@
 # nombre del ejecutable
-TARGET = main
+EXEC = main
+
+# archivos fuente
+SRCS = main.cpp curso.cpp estudiante.cpp
+
+# archivos header (no se compilan, pero los listamos por orden)
+HEADERS = curso.h estudiante.h
 
 # compilador y flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -g
+CXXFLAGS = -Wall -std=c++17
 
-# archivos fuente y objetos
-SRCS = main.cpp curso.cpp estudiante.cpp
-OBJS = $(SRCS:.cpp=.o)
+# compilar
+$(EXEC): $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -o $(EXEC) $(SRCS)
 
-# compilar el ejecutable
-all: $(TARGET)
-
-# enlazar obejtos
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
-
-# compilar archivos .cpp a .o
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# ejecutar el programa
+run: $(EXEC)
+	./$(EXEC)
 
 # limpiar archivos generados
 clean:
-	rm -f $(OBJS) $(TARGET)
-
-# compilar y ejecutar
-run: all
-	./$(TARGET)
+	rm -f $(EXEC)

@@ -1,30 +1,24 @@
-# Nombre del ejecutable
-TARGET = main
+# nombre del ejecutable
+EXEC = main
 
-# Compilador
-CXX = g++
-
-# Opciones de compilación
-CXXFLAGS = -Wall -std=c++11
-
-# Archivos fuente
+# archivos fuente
 SRCS = main.cpp Banco.cpp CajaDeAhorro.cpp CuentaCorriente.cpp
 
-# Archivos objeto
-OBJS = $(SRCS:.cpp=.o)
+# archivos header (no se compilan, pero los listamos por orden)
+HEADERS = Banco.h CajaDeAhorro.h CuentaCorriente.h
 
-# Regla principal para compilar el ejecutable
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+# compilador y flags
+CXX = g++
+CXXFLAGS = -Wall -std=c++17
 
-# Regla para compilar archivos fuente a objeto
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# compilar
+$(EXEC): $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -o $(EXEC) $(SRCS)
 
-# Regla para ejecutar el programa
-run: $(TARGET)
-	./$(TARGET)
+# ejecutar el programa
+run: $(EXEC)
+	./$(EXEC)
 
-# Regla para limpiar archivos objeto y ejecutable
+# limpiar archivos generados
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(EXEC)
