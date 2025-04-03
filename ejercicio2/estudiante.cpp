@@ -14,13 +14,15 @@ string Estudiante::getNombreCompleto() {return nombreCompleto;}
 int Estudiante::getLegajo() {return legajo;}
 vector<cursoConNota> Estudiante::getCursosConNotas() const {return cursosConNotas;}
 
+// agrega un nuevo curso con su nota final al historial (el vector cursoConNota) del estudiante 
 void Estudiante::agregarCurso(const string& nombreCurso, float notaFinal) {
     cursoConNota nuevo;
     nuevo.nombreCurso = nombreCurso;
     nuevo.notaFinal = notaFinal;
-    cursosConNotas.push_back(nuevo);
+    cursosConNotas.push_back(nuevo); // se agrega al vector al final 
 }
 
+// calcula y devuelve el promedio de todas las notas del estudiante
 float Estudiante::calcularPromedio() const {
     if (cursosConNotas.empty()) return 0.0;
 

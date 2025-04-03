@@ -53,7 +53,7 @@ int main(){
                 int legajo = pedirEnteroPositivo("Ingrese legajo (entero positivo): ");
                 int cantidadCursos = pedirEnteroPositivo("Cuantos cursos desea agregar?: ");
 
-                Estudiante* nuevo = new Estudiante(nombre, legajo);
+                shared_ptr<Estudiante> nuevo = make_shared<Estudiante>(nombre, legajo);
 
                 for (int i = 0; i < cantidadCursos; ++i) {
                     string nombreCurso;
@@ -88,14 +88,14 @@ int main(){
             }
             case 3: {
                 int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
-                Estudiante* est = cursoOriginal.buscarEstudiante(legajo);
+                shared_ptr<Estudiante> est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) cout << "Promedio final: " << est->calcularPromedio() << endl;
                 else cout << "Estudiante no encontrado\n";
                 break;
             }
             case 4: {
                 int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
-                Estudiante* est = cursoOriginal.buscarEstudiante(legajo);
+                shared_ptr<Estudiante> est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) est->mostrarInformacion();
                 else cout << "\nEstudiante no encontrado\n";
                 break;

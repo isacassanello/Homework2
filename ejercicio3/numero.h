@@ -1,9 +1,10 @@
 #ifndef NUMERO_H
 #define NUMERO_H
 #include <string>
+#include <memory>
 using namespace std;
  
-// Numero es una clase abstracta pura o una interfaz
+// Numero es una clase abstracta pura 
 class Numero{
     public:
         virtual shared_ptr<Numero> suma(const Numero& otro) = 0;

@@ -5,6 +5,7 @@
         "new": "cpp",
         "istream": "cpp",
         "locale": "cpp",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "vector": "cpp"
     }
 }
