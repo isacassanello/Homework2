@@ -27,7 +27,7 @@ class CuentaDeBanco{
         virtual void retirar(double cantidad) = 0; // virtuales puros -> obligando a las subclases a implementarlos
 
         // metodo virtual puro para mostrar informacion
-        virtual void mostrarInfo() = 0; // virtuales puros -> obligando a las subclases a implementarlos
+        virtual void mostrarInfo() const = 0; // virtuales puros -> obligando a las subclases a implementarlos
 };
 
 #endif
