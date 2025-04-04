@@ -1,6 +1,6 @@
 #include <iostream>
 #include "curso.h"
-#include <memory>
+#include <memory>  // para usar shared_ptr
 using namespace std;
 
 void mostraMenu(){
@@ -23,6 +23,7 @@ int pedirEnteroPositivo(const string& mensaje) {
         cout << mensaje;
         cin >> valor;
 
+        // verifica que sea un numero valido y mayor que 0
         if (cin.fail() || valor <= 0) {
             cin.clear(); // limpia el estado de error
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // descarta entrada invalida
@@ -35,8 +36,8 @@ int pedirEnteroPositivo(const string& mensaje) {
 }
 
 int main(){
-    Curso cursoOriginal;
-    Curso* cursoCopia = nullptr;
+    Curso cursoOriginal; // objeto principal del curso
+    shared_ptr<Curso> cursoCopia = nullptr; // puntero para crear una copia del curso (shallow copy)
     int opcion = -1;
 
     while (opcion != 0){
@@ -45,7 +46,8 @@ int main(){
         cin.ignore();
 
         switch(opcion){
-            case 1: {
+            case 1: { 
+                // ===Inscripcion de estudiante===
                 string nombre; 
                 cout << "\nIngrese nombre completo: ";
                 getline(cin, nombre);
@@ -53,8 +55,10 @@ int main(){
                 int legajo = pedirEnteroPositivo("Ingrese legajo (entero positivo): ");
                 int cantidadCursos = pedirEnteroPositivo("Cuantos cursos desea agregar?: ");
 
+                // crea el estudiante
                 shared_ptr<Estudiante> nuevo = make_shared<Estudiante>(nombre, legajo);
 
+                // cargar los cursos del estudiante
                 for (int i = 0; i < cantidadCursos; ++i) {
                     string nombreCurso;
                     float nota;
@@ -64,7 +68,8 @@ int main(){
 
                     // condiciones para la nota asi no se me rompe el programa
                     while (true){
-                        cout << "Nota final: ";
+                        // asumo que la nota final que se pone, en caso de que sea un numero con decimal, se escriba con punto y no con coma
+                        cout << "Nota final (usar punto como separador decimal): ";
                         cin >> nota;
 
                         if (cin.fail() || nota < 0 || nota > 10){
@@ -82,46 +87,49 @@ int main(){
                 break;
             }
             case 2:{
+                // ===Desinscripcion de estudiante===
                 int legajo = pedirEnteroPositivo("\nIngrese el legajo del estudiante a desinscribir: ");
                 cursoOriginal.desinscribirEstudiantes(legajo);
                 break;
             }
             case 3: {
-                int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
+                // ===Mostrar promedio final del estudiante===
+                int legajo = pedirEnteroPositivo("\nIngrese legajo del estudiante: ");
                 shared_ptr<Estudiante> est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) cout << "Promedio final: " << est->calcularPromedio() << endl;
                 else cout << "Estudiante no encontrado\n";
                 break;
             }
             case 4: {
-                int legajo = pedirEnteroPositivo("Ingrese legajo del estudiante: ");
+                // ===Buscar estudiante por legajo y mostrar su informacion===
+                int legajo = pedirEnteroPositivo("\nIngrese legajo del estudiante: ");
                 shared_ptr<Estudiante> est = cursoOriginal.buscarEstudiante(legajo);
                 if (est) est->mostrarInformacion();
-                else cout << "\nEstudiante no encontrado\n";
+                else cout << "Estudiante no encontrado\n";
                 break;
             }
             case 5: {
+                // ===Ver si el curso está completo===
                 if (cursoOriginal.estaCompleto()) cout << "\nEl curso esta completo\n";
                 else cout << "\nEl curso NO esta completo\n";
                 break;
             }
             case 6: {
+                // ===Mostrar estudiantes ordenados alfabeticamente===
                 if (cursoOriginal.estaVacio()) cout << "El curso esta vacio, no hay estudiantes para mostar" << endl;
                 else cursoOriginal.mostrarEstudiantes();
 
                 break;
             }
             case 7: {
-                if (cursoCopia != nullptr) {
-                    delete cursoCopia;
-                }
-
-                cursoCopia = new Curso(cursoOriginal);  // Crear una nueva copia
+                // ===Copiar curso (shallow copy)===
+                cursoCopia = make_shared<Curso>(cursoOriginal);  // crear una nueva copia
                 cout << "\nCurso copiado correctamente. Mostrando estudiantes del curso copiado:\n";
                 cursoCopia->mostrarEstudiantes();
                 break;
             }
             case 0: {
+                // ===Salir del programa===
                 cout << "Saliendo del programa";
                 break;
 

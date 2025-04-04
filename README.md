@@ -3,9 +3,8 @@
 COMPILADOR EN EL EJERCICIO 1
 
 Paso 1 -> cd ejercicio1
-Paso 2 -> clang++ -std=c++11 main.cpp tiempo.cpp -o main
-Paso 3 -> ./main
-
+Paso 2 -> make run 
+Paso 3 -> make clean -> limpia los archivos que se generan en la compilacion
 ------------------------------------------------
 
 COMPILADOR EN EL EJERCICIO 2
@@ -26,5 +25,5 @@ Paso 2 -> make clean -> limpia los archivos que se generan en la compilacion
 COMPILADOR EN EL EJERCICIO 4
 
 Paso 1 -> cd ejercicio4
-Paso 2 -> 
-Paso 3 -> ./main
+Paso 2 -> make run 
+Paso 3 -> make clean -> limpia los archivos que se generan en la compilacion

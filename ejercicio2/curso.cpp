@@ -11,7 +11,6 @@ Curso::Curso() {}
 Curso::Curso(const Curso& otro) {
     estudiantes = otro.estudiantes; // los shared_ptr se copian
 }
-
 /*
 Justificación:
 Una SHALLOW COPY es peligrosa si uso raw_ptr, porque copias solo las direcciones de los punteros, lo que puede generar problemas
@@ -25,12 +24,12 @@ sin necesidad de hacer deep copy.
 // inscribir estudiante (si no esta inscripto y hay lugar)
 void Curso::inscribirEstudiantes(shared_ptr<Estudiante> estudiante){
     if (estaCompleto()){
-        cout << "El curso esta completo. No se puede inscribir a " << estudiante->getNombreCompleto() << endl;
+        cout << "\nEl curso esta completo. No se puede inscribir a " << estudiante->getNombreCompleto() << "\n" << endl;
         return;
     }
     // evita duplicados: verifica que el legajo no este repetido
     if (buscarEstudiante(estudiante->getLegajo()) != NULL) {
-        cout << "El estudiante ya esta inscripto";
+        cout << "\nEl estudiante ya esta inscripto\n";
         return;
     }
     // agrega el estudiante al vector
@@ -85,7 +84,7 @@ void Curso::mostrarEstudiantes(){
     // recorro la copia e imprimo los nombres ordenados
     for (size_t i = 0; i < copia.size(); i++) {
         if (copia[i]){
-            cout << "Estudiante " << i + 1 << ": ";
+            cout << "\nEstudiante " << i + 1 << ": ";
             cout << *copia[i] << endl;
         } else cout << "Estudiante en posicion " << i << " es nullptr" << endl;
     }
