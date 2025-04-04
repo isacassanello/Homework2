@@ -3,23 +3,29 @@
 #include "numero.h"
 
 /*
-Se usa make_shared<Complejo>() en cada operación para evitar new y tener manejo automático de memoria
+    - Clase Complejo es heredada de la interfaz Numero 
+    - representa un numero complejo con parte real y parte imaginaria
 */
  
 class Complejo : public Numero {
     private:
-        double real;
-        double imaginario;
+        double real; // parte real del numero complejo
+        double imaginario; // parte imaginaria del numero complejo
 
     public:
-        Complejo(double re, double im); // parte real y parte imaginaria
+        // constructor: recibe parte real e imaginaria
+        Complejo(double re, double im); 
+        
+        // implementaciones de las operaciones definidas en la interfaz Numero
         shared_ptr<Numero> suma(const Numero& otro) override;
         shared_ptr<Numero> resta(const Numero& otro) override;
         shared_ptr<Numero> multiplicacion(const Numero& otro) override;
         shared_ptr<Numero> division(const Numero& otro) override;
+        
+        // devuelve el valor como string
         string toString() override;
         
-        // getter
+        // getters
         double getReal();
         double getImaginario();
 };

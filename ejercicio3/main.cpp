@@ -39,11 +39,39 @@ int main(){
     cout << "Suma: " << c1->suma(*c2)->toString() << endl;
     cout << "Resta: " << c1->resta(*c2)->toString() << endl;
     cout << "Multiplicacion: " << c1->multiplicacion(*c2)->toString() << endl;
+    cout << "Division: " << c1->division(*c2)->toString() << "\n" << endl;
+
+    // DIVISION POR CERO
+    cout << "\n=========DIVISION POR CERO=========" << endl;
+
+    cout << "ENTEROS" << endl;
+    shared_ptr<Numero> e3 = make_shared<Entero>(8);
+    shared_ptr<Numero> e4 = make_shared<Entero>(0);
     try {
-        shared_ptr<Numero> resultado = c1->division(*c2);
-        cout << "Division: " << resultado->toString() << "\n" << endl;
+        shared_ptr<Numero> resultado = e3->division(*e4);
+        cout << "Division " << resultado->toString() << "\n" << endl;
     } catch (const exception& e) {
-        cout << "\nError al dividir: " << e.what() << endl;
+        cout << "Error al dividir enteros: " << e.what() << endl;
+    }
+
+    cout << "\nREALES" << endl;
+    shared_ptr<Numero> r3 = make_shared<Real>(3.3);
+    shared_ptr<Numero> r4 = make_shared<Real>(0.0);
+    try {
+        shared_ptr<Numero> resultado = r3->division(*r4);
+        cout << "Division " << resultado->toString() << "\n" << endl;
+    } catch (const exception& e) {
+        cout << "Error al dividir reales: " << e.what() << endl;
+    }
+
+    cout << "\nCOMPLEJOS" << endl;
+    shared_ptr<Numero> c3 = make_shared<Complejo>(1, 2);
+    shared_ptr<Numero> c4 = make_shared<Complejo>(0, 0);
+    try {
+        shared_ptr<Numero> resultado = c3->division(*r4);
+        cout << "Division " << resultado->toString() << "\n" << endl;
+    } catch (const exception& e) {
+        cout << "Error al dividir complejos: " << e.what() << endl;
     }
 
     return 0;
