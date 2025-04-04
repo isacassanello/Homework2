@@ -10,13 +10,16 @@ class CuentaDeBanco{
     estan protected para que las subclases (CajaDeAhorro y CuentaCorriente) puedan acceder directamente sin usar getters/setters
     */
         double balance; // total de la cuenta
-        string titularCuenta;
+        string titularCuenta; // nombre del dueño de la cuenta
 
     public:
-        // constructor
+    /*
+    estan public para que estos metodos sean accesibles desde fuera de la clase 
+    */
+        // constructor: recibe nombre del titular y un saldo inicial (por defecto es 0.0)
         CuentaDeBanco(string titular, double saldoInicial = 0.0);
 
-        // destructor virtual
+        // destructor virtual: permite que al eliminar una cuenta derivada se llame correctamente al destructor de la clase hija
         virtual ~CuentaDeBanco();
 
         // metodo para depositar dinero

@@ -6,9 +6,11 @@ using namespace std;
 CajaDeAhorro::CajaDeAhorro(string titular, double saldoInicial)
     // llamo al constructor de la clase base (CuentaDeBanco) con los parametros necesarios para inicializar sus atributos: titularCuenta y balance
     : CuentaDeBanco(titular, saldoInicial) {
+    // inicio el contador de visualizaciones en 0
     contadorMostrar = 0;
 }
 
+// implementacion del metodo 'retirar'
 void CajaDeAhorro::retirar(double cant){
     if (cant > balance){
         cout << "Fondo insuficiente en Caja de Ahorro" << endl;
@@ -18,11 +20,11 @@ void CajaDeAhorro::retirar(double cant){
     }
 }
 
+// implementacion del metodo 'mostrarInfo'
 void CajaDeAhorro::mostrarInfo() const{
-    // const_cast para modificar dentro de un método const
     if (contadorMostrar > 2){
-        const_cast<CajaDeAhorro*>(this)->balance -= 20;
-        // const_cast elimina la cualidad de 'const de un objeto
+        // si se llama mas de dos veces, se descuenta $20 del balance
+        const_cast<CajaDeAhorro*>(this)->balance -= 20; // const_cast para modificar dentro de un metodo const
         cout << "Se descontaron $20 por exceder el limite de consultas" << endl;
     } 
 
@@ -31,5 +33,6 @@ void CajaDeAhorro::mostrarInfo() const{
     cout << "   -> Titular: " << titularCuenta << endl;
     cout << "   -> Balance: $" << balance << endl;
 
+    // se incrementa el contador de visualizaciones
     contadorMostrar++; // es mutable int
 }
