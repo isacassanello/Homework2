@@ -1,5 +1,3 @@
-link de github: https://github.com/isacassanello/Homework2.git
-
 COMPILADOR EN EL EJERCICIO 1
 
 Paso 1 -> cd ejercicio1
