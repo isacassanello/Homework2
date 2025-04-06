@@ -43,17 +43,18 @@ int main(){
         switch(opcion){
             case 1: {
                 T = Tiempo();
-                cout << "Hora creada sin parametros\n";
+                cout << "Hora creada sin parametros\n"; 
                 break;
             }
             case 2: {
                 int hora;
-                cout << "Ingrese una hora: "; cin >> hora;
+                cout << "Ingrese una hora: "; cin >> hora; // asumo que el usuario ingresa numeros
                 T = Tiempo(hora);
                 break;
             }
             case 3: {
                 int hora, minuto;
+                // asumo que el usuario ingresa numeros
                 cout << "Ingrese una hora: "; cin >> hora;
                 cout << "Ingrese los minutos: "; cin >> minuto;
                 T = Tiempo(hora, minuto);
@@ -61,6 +62,7 @@ int main(){
             }
             case 4: {
                 int hora, minuto, segundo;
+                // asumo que el usuario ingresa numeros
                 cout << "Ingrese una hora: "; cin >> hora;
                 cout << "Ingrese los minutos: "; cin >> minuto;
                 cout << "Ingrese los segundos: "; cin >> segundo;
@@ -70,6 +72,7 @@ int main(){
             case 5: {
                 int hora, minuto, segundo;
                 string periodo;
+                // asumo que el usuario ingresa numeros excepto para el periodo
                 cout << "Ingrese una hora: "; cin >> hora;
                 cout << "Ingrese los minutos: "; cin >> minuto;
                 cout << "Ingrese los segundos: "; cin >> segundo;
@@ -90,19 +93,19 @@ int main(){
             }
             case 8: {
                 int nuevaHora;
-                cout << "Ingrese nueva hora: "; cin >> nuevaHora;
+                cout << "Ingrese nueva hora: "; cin >> nuevaHora; // asumo que el usuario ingresa numeros
                 T.setHora(nuevaHora);
                 break;
             }
             case 9: {
                 int nuevoMinuto;
-                cout << "Ingrese nuevo minuto: "; cin >> nuevoMinuto;
+                cout << "Ingrese nuevo minuto: "; cin >> nuevoMinuto; // asumo que el usuario ingresa numeros
                 T.setMinuto(nuevoMinuto);
                 break;
             }
             case 10: {
                 int nuevoSegundo;
-                cout << "Ingrese nuevo segundo: "; cin >> nuevoSegundo;
+                cout << "Ingrese nuevo segundo: "; cin >> nuevoSegundo; // asumo que el usuario ingresa numeros
                 T.setSegundo(nuevoSegundo);
                 break;
             }
