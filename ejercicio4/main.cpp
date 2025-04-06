@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     CajaDeAhorro caja("Juan", 100);
-    CuentaCorriente corriente("Juan", 40, &caja);
+    CuentaCorriente corriente("Fede", 40, &caja);
 
     cout << "\n=====MOSTRAR BALANCES INICIALES=====" << endl;
     cout << "Caja de Ahorro:" << endl;
