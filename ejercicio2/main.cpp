@@ -74,7 +74,7 @@ int main(){
 
                         if (cin.fail() || nota < 0 || nota > 10){
                             cin.clear(); 
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // descarta la entrada inválida
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // descarta la entrada invalida
                             cout << "\nIngrese una nota valida entre 0 y 10 (solo numeros)\n";
                         } else {
                             cin.ignore();
@@ -118,7 +118,6 @@ int main(){
                 // ===Mostrar estudiantes ordenados alfabeticamente===
                 if (cursoOriginal.estaVacio()) cout << "El curso esta vacio, no hay estudiantes para mostar" << endl;
                 else cursoOriginal.mostrarEstudiantes();
-
                 break;
             }
             case 7: {
